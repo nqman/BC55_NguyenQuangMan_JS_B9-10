@@ -34,7 +34,7 @@ function NhanVien(
         var tongLuong = Number(this.luongCoBan) * 1;
         break;
     }
-    this.tongLuong = tongLuong;
+    this.tongLuong = tongLuong.toLocaleString();
   };
   this._xepLoai = function () {
     var gioLam = this.gioLam;
