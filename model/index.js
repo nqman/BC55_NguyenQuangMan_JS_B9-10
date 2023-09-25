@@ -95,6 +95,7 @@ function themNguoiDung() {
     console.log(nv.gioLam);
     console.log(dsnv.arr);
     renderListNV(dsnv.arr);
+    //! clear giá trị cũ
   }
 }
 // Render danh sách nhân viên
@@ -119,4 +120,27 @@ function renderListNV(data) {
         `;
   }
   domID("tableDanhSach").innerHTML = content;
+}
+// Xoá nhân viên
+function xoaNV(taiKhoan) {
+  dsnv._xoaNV(taiKhoan);
+  renderListNV(dsnv.arr);
+}
+// Sửa nhân viên
+function suaNV(taiKhoan) {
+  var nv = dsnv._layThongTinNVTheoTaiKhoan(taiKhoan);
+  if (nv) {
+    domID("tknv").value = nv.taiKhoan;
+    domID("name").value = nv.hoTen;
+    domID("email").value = nv.email;
+    domID("password").value = nv.matKhau;
+    domID("datepicker").value = nv.ngayLam;
+    domID("luongCB").value = nv.luongCoBan;
+    domID("chucvu").value = nv.chucVu;
+    domID("gioLam").value = nv.gioLam;
+  }
+}
+// cập nhật nhân viên
+function capNhatNV() {
+  var nv = layThongTinNV();
 }

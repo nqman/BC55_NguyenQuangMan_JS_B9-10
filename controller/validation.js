@@ -23,14 +23,14 @@ function doDaiKyTu(value, min, max, idCanhBao, mess) {
 // Kiểm tra định dạng chữ
 function kiemTraChu(value, idCanhBao, mess) {
   for (var i = 0; i < value.length; i++) {
-    if (!isNaN(value[i])) {
-      domID(idCanhBao).innerHTML = mess;
-      domID(idCanhBao).style.display = "block";
-      return false;
+    if (isNaN(value[i])) {
+      domID(idCanhBao).innerHTML = "";
+      return true;
     }
   }
-  domID(idCanhBao).innerHTML = "";
-  return true;
+  domID(idCanhBao).innerHTML = mess;
+  domID(idCanhBao).style.display = "block";
+  return false;
 }
 // Kiểm tra định dạng email
 function kiemTraEmail(email, idCanhBao, mess) {
