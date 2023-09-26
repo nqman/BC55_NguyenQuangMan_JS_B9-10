@@ -12,8 +12,8 @@ function DanhSachNhanVien() {
         index = i;
         break;
       }
-      return index;
     }
+    return index;
   };
   this._xoaNV = function (taiKhoan) {
     var index = this._timViTriNV(taiKhoan);
@@ -28,14 +28,22 @@ function DanhSachNhanVien() {
     }
     return null;
   };
-  this._suaNV = function taiKhoan() {
-    var index = this._timViTriNV(taiKhoan);
-  };
   this._capNhatNV = function (nv) {
     var index = this._timViTriNV(nv.taiKhoan);
     if (index !== -1) {
       this.arr[index] = nv;
     }
   };
-  this._timNV = function () {};
+  this._timNV = function (keyword) {
+    var mangTimKiem = [];
+    for (var i = 0; i < this.arr.length; i++) {
+      var nv = this.arr[i];
+      var keywordLowerCase = keyword.toLowerCase();
+      var xepLoaiLowerCase = nv.xepLoai.toLowerCase();
+      if (xepLoaiLowerCase.indexOf(keywordLowerCase) !== -1) {
+        mangTimKiem.push(nv);
+      }
+    }
+    return mangTimKiem;
+  };
 }

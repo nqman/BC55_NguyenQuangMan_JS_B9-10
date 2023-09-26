@@ -22,11 +22,11 @@ function doDaiKyTu(value, min, max, idCanhBao, mess) {
 }
 // Kiểm tra định dạng chữ
 function kiemTraChu(value, idCanhBao, mess) {
-  for (var i = 0; i < value.length; i++) {
-    if (isNaN(value[i])) {
-      domID(idCanhBao).innerHTML = "";
-      return true;
-    }
+  var regexAlphabet = /^(?!.*[\d!@#$%^&*()_+={}\[\]:;"'<>,.?/~\\]).*$/;
+  var isValid = regexAlphabet.test(value);
+  if (isValid) {
+    domID(idCanhBao).innerHTML = "";
+    return true;
   }
   domID(idCanhBao).innerHTML = mess;
   domID(idCanhBao).style.display = "block";

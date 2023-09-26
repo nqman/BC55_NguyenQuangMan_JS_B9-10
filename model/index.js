@@ -17,7 +17,6 @@ function layThongTinNV() {
   var _gioLam = domID("gioLam").value * 1;
 
   //! Validation
-
   var isValid = true;
   // Kiểm tra Tài khoản
   isValid &=
@@ -96,6 +95,13 @@ function themNguoiDung() {
     console.log(dsnv.arr);
     renderListNV(dsnv.arr);
     //! clear giá trị cũ
+    domID("tknv").value = "";
+    domID("name").value = "";
+    domID("email").value = "";
+    domID("password").value = "";
+    domID("luongCB").value = "";
+    domID("chucvu").value = domID("chonChucVu").value;
+    domID("gioLam").value = "";
   }
 }
 // Render danh sách nhân viên
@@ -113,7 +119,8 @@ function renderListNV(data) {
           <td>${nv.tongLuong}</td>
           <td>${nv.xepLoai}</td>
           <td>
-          <button class="btn btn-success" onclick="suaNV('${nv.taiKhoan}')">Sửa</button>
+          <button class="btn btn-success" data-toggle="modal"
+          data-target="#myModal" onclick="suaNV('${nv.taiKhoan}')">Sửa</button>
           <button class="btn btn-danger" onclick="xoaNV('${nv.taiKhoan}')">Xoá</button>
           </td>
       </tr>
@@ -131,6 +138,7 @@ function suaNV(taiKhoan) {
   var nv = dsnv._layThongTinNVTheoTaiKhoan(taiKhoan);
   if (nv) {
     domID("tknv").value = nv.taiKhoan;
+    domID("tknv").disabled = true;
     domID("name").value = nv.hoTen;
     domID("email").value = nv.email;
     domID("password").value = nv.matKhau;
@@ -138,9 +146,23 @@ function suaNV(taiKhoan) {
     domID("luongCB").value = nv.luongCoBan;
     domID("chucvu").value = nv.chucVu;
     domID("gioLam").value = nv.gioLam;
+    domID("btnThemNV").disabled = true;
   }
 }
+
 // cập nhật nhân viên
 function capNhatNV() {
   var nv = layThongTinNV();
+  if (nv) {
+    dsnv._capNhatNV(nv);
+    nv._xepLoai();
+    renderListNV(dsnv.arr);
+  }
 }
+
+// Tìm nhân viên theo xếp loại
+domID("btnTimNV").onclick = function () {
+  var keyword = domID("searchName").value;
+  var mangTimKiem = dsnv._timNV(keyword);
+  renderListNV(mangTimKiem);
+};
