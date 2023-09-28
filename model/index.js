@@ -82,9 +82,14 @@ function layThongTinNV() {
   return nv;
 }
 
-// tạo đối tượng nhân viên từ lớp đối tượng NhanVien
-
 // Thêm nhân viên
+domID("btnThem").onclick = function () {
+  domID("tknv").disabled = false;
+  domID("btnThemNV").disabled = false;
+  domID("btnCapNhat").disabled = true;
+};
+
+// Thêm người dùng
 function themNguoiDung() {
   var nv = layThongTinNV();
   console.log(nv);
@@ -102,6 +107,8 @@ function themNguoiDung() {
     domID("luongCB").value = "";
     domID("chucvu").value = domID("chonChucVu").value;
     domID("gioLam").value = "";
+    //! Đóng tab thêm nhân viên
+    domID("btnDong").click();
   }
 }
 // Render danh sách nhân viên
@@ -147,6 +154,7 @@ function suaNV(taiKhoan) {
     domID("chucvu").value = nv.chucVu;
     domID("gioLam").value = nv.gioLam;
     domID("btnThemNV").disabled = true;
+    domID("btnCapNhat").disabled = false;
   }
 }
 
@@ -157,8 +165,20 @@ function capNhatNV() {
     dsnv._capNhatNV(nv);
     nv._xepLoai();
     renderListNV(dsnv.arr);
+    //! Đóng tab thêm nhân viên
+    domID("btnDong").click();
   }
 }
+domID("btnDong").onclick = function closeModal() {
+  //! clear giá trị cũ
+  domID("tknv").value = "";
+  domID("name").value = "";
+  domID("email").value = "";
+  domID("password").value = "";
+  domID("luongCB").value = "";
+  domID("chucvu").value = domID("chonChucVu").value;
+  domID("gioLam").value = "";
+};
 
 // Tìm nhân viên theo xếp loại
 domID("btnTimNV").onclick = function () {
