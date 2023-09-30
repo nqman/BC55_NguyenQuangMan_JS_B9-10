@@ -1,6 +1,8 @@
 // Tạo đối tượng dsnv từ lớp đối tượng DanhSachNhanVien
 var dsnv = new DanhSachNhanVien();
 
+getLocalStorage();
+
 function domID(id) {
   return document.getElementById(id);
 }
@@ -99,6 +101,7 @@ function themNguoiDung() {
     console.log(nv.gioLam);
     console.log(dsnv.arr);
     renderListNV(dsnv.arr);
+    setLocalStorage();
     //! clear giá trị cũ
     domID("tknv").value = "";
     domID("name").value = "";
@@ -139,6 +142,7 @@ function renderListNV(data) {
 function xoaNV(taiKhoan) {
   dsnv._xoaNV(taiKhoan);
   renderListNV(dsnv.arr);
+  setLocalStorage();
 }
 // Sửa nhân viên
 function suaNV(taiKhoan) {
@@ -157,7 +161,18 @@ function suaNV(taiKhoan) {
     domID("btnCapNhat").disabled = false;
   }
 }
-
+function setLocalStorage() {
+  var dataString = JSON.stringify(dsnv.arr);
+  localStorage.setItem("DSNV", dataString);
+}
+function getLocalStorage() {
+  var dataString = localStorage.getItem("DSNV");
+  if (dataString) {
+    var dataJson = JSON.parse(dataString);
+    dsnv.arr = dataJson;
+    renderListNV(dsnv.arr);
+  }
+}
 // cập nhật nhân viên
 function capNhatNV() {
   var nv = layThongTinNV();
@@ -165,6 +180,7 @@ function capNhatNV() {
     dsnv._capNhatNV(nv);
     nv._xepLoai();
     renderListNV(dsnv.arr);
+    setLocalStorage();
     //! Đóng tab thêm nhân viên
     domID("btnDong").click();
   }
